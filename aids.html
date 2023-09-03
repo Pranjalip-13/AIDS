@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Covid-19 dataset</title>
+    <!-- Load Google Charts API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart', 'heatmap'] });
+        google.charts.setOnLoadCallback(drawCharts);
+
+        // Sample data for charts
+        var pieChartData = [
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Sleep', 8],
+            ['Eat', 2],
+            ['Exercise', 1],
+            ['Relax', 5]
+        ];
+
+        var barChartData = [
+            ['Country', 'Active Cases'],
+            ['India', 100],
+            ['USA', 250],
+            ['Japan', 180],
+            ['England', 120],
+            ['Australia', 80]
+        ];
+
+        var covidData = [
+            ['Country/Region', 'Confirmed', 'Deaths', 'Recovered', 'Active'],
+            ['USA', 1000000, 50000, 600000, 300000],
+            ['India', 800000, 30000, 700000, 100000],
+            ['Brazil', 700000, 40000, 600000, 60000],
+            ['Russia', 500000, 10000, 400000, 90000],
+            ['UK', 400000, 30000, 200000, 150000]
+        ];
+
+        // Function to draw pie chart
+        function drawPieChart() {
+            var data = google.visualization.arrayToDataTable(pieChartData);
+            var options = {
+                title: 'Daily Activities'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
+            chart.draw(data, options);
+        }
+
+        // Function to draw bar graph
+        function drawBarGraph() {
+            var data = google.visualization.arrayToDataTable(barChartData);
+            var options = {
+                title: 'Active Cases by Country'
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('barGraph'));
+            chart.draw(data, options);
+        }
+
+        // Function to draw COVID-19 data bar graph
+        function drawCovidDataGraph() {
+            var data = google.visualization.arrayToDataTable(covidData);
+            var options = {
+                title: 'COVID-19 Data by Country/Region',
+                hAxis: { title: 'Country/Region' },
+                vAxis: { title: 'Cases' },
+                bars: 'vertical'
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('covidDataGraph'));
+            chart.draw(data, options);
+        }
+
+        // Function to draw ROC curve
+        function drawRocCurve() {
+            // Sample data for ROC curve
+            var rocData = new google.visualization.DataTable();
+            rocData.addColumn('number', 'False Positive Rate');
+            rocData.addColumn('number', 'True Positive Rate');
+            rocData.addRows([
+                [0, 0],
+                [0.1, 0.3],
+                [0.2, 0.6],
+                [0.3, 0.8],
+                [0.4, 0.9],
+                [0.5, 0.95],
+                [0.6, 0.97],
+                [0.7, 0.99],
+                [0.8, 1],
+                [1, 1]
+            ]);
+            var options = {
+                title: 'ROC Curve',
+                hAxis: { title: 'False Positive Rate' },
+                vAxis: { title: 'True Positive Rate' }
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('rocCurve'));
+            chart.draw(rocData, options);
+        }
+
+        // Function to draw heatmap
+        function drawHeatmap() {
+            var heatmapData = google.visualization.arrayToDataTable([
+                ['Day', '0-4', '4-8', '8-12', '12-16', '16-20', '20-24'],
+                ['Sunday', 10, 15, 20, 25, 30, 35],
+                ['Monday', 20, 25, 30, 35, 40, 45],
+                ['Tuesday', 15, 20, 25, 30, 35, 40],
+                ['Wednesday', 5, 10, 15, 20, 25, 30],
+                ['Thursday', 30, 35, 40, 45, 50, 55],
+                ['Friday', 25, 30, 35, 40, 45, 50],
+                ['Saturday', 35, 40, 45, 50, 55, 60]
+            ]);
+            var heatmapOptions = {
+                title: 'Activity Heatmap',
+                colors: ['white', 'lightblue']
+            };
+            var heatmapChart = new google.visualization.Heatmap(document.getElementById('heatmap'));
+            heatmapChart.draw(heatmapData, heatmapOptions);
+        }
+
+        // Function to draw all charts
+        function drawCharts() {
+            drawPieChart();
+            drawBarGraph();
+            drawCovidDataGraph();
+            drawRocCurve();
+            drawHeatmap();
+        }
+    </script>
+</head>
+<body>
+    <h1>Covid 19 Dataset</h1>
+    <div id="pieChart" style="width: 900px; height: 600px;"></div>
+    <div id="barGraph" style="width: 900px; height: 500px;"></div>
+    <div id="covidDataGraph" style="width: 900px; height: 500px;"></div>
+    <div id="rocCurve" style="width: 700px; height: 500px;"></div>
+    <div id="heatmap" style="width: 800px; height: 500px;"></div>
+</body>
+</html>
